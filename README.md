@@ -1,28 +1,28 @@
-🏥 Hospital Resource & Ward Management System
-📌 Project Overview
+**Hospital Resource & Ward Management System**
+**Project Overview :** 
 
-The Hospital Resource & Ward Management System is a web-based application designed to help hospitals efficiently manage inpatient resources such as wards, beds, rooms, medical equipment, and staff. The system provides real-time visibility into hospital resource utilization, streamlines patient admission and discharge workflows, and supports data-driven decision-making for hospital administrators.
+-> The Hospital Resource & Ward Management System is a web-based application designed to help hospitals efficiently manage inpatient resources such as wards, beds, rooms, medical equipment, and staff. The system provides real-time visibility into hospital resource utilization, streamlines patient admission and discharge workflows, and supports data-driven decision-making for hospital administrators.
 
-Many small to medium hospitals still rely on manual registers or fragmented software systems, leading to inefficiencies, overcrowding, delayed admissions, and poor resource utilization. This project aims to replace such manual processes with a centralized, user-friendly digital platform.
+-> Many small to medium hospitals still rely on manual registers or fragmented software systems, leading to inefficiencies, overcrowding, delayed admissions, and poor resource utilization. This project aims to replace such manual processes with a centralized, user-friendly digital platform.
 
-❓ Problem It Solves
+**Problem It Solves**
 
-Hospitals face several operational challenges, including:
+1. Hospitals face several operational challenges, including:
 
-Manual or disconnected tracking of ward and bed availability
+2. Manual or disconnected tracking of ward and bed availability
 
-Difficulty in managing patient admissions, transfers, and discharges
+3. Difficulty in managing patient admissions, transfers, and discharges
 
-Lack of real-time occupancy visibility
+4. Lack of real-time occupancy visibility
 
-Underutilization or overloading of hospital resources
+5. Underutilization or overloading of hospital resources
 
-Administrative overhead and human errors
+6. Administrative overhead and human errors
 
 Existing hospital management systems are often expensive, complex, and not suitable for small or medium-sized hospitals. This project addresses the need for a simple, affordable, and customizable solution focused specifically on inpatient resource and ward management.
 
-👥 Target Users (Personas)
-🧑‍💼 Hospital Administrator
+Target Users (Personas)
+**Hospital Administrator**
 
 Manages overall hospital operations
 
@@ -30,7 +30,7 @@ Monitors ward occupancy and resource utilization
 
 Requires dashboards, reports, and administrative controls
 
-👩‍⚕️ Doctor
+**Doctor**
 
 Admits and transfers patients
 
@@ -38,7 +38,7 @@ Needs quick access to bed availability and patient records
 
 Requires role-based access without administrative complexity
 
-👩‍⚕️ Nursing / Support Staff
+** Nursing / Support Staff**
 
 Manages ward-level activities
 
@@ -46,11 +46,11 @@ Updates patient status and bed allocation
 
 Requires a simple and mobile-friendly interface
 
-🎯 Vision Statement
+**Vision Statement**
 
 To create an intuitive and reliable digital system that simplifies hospital ward and resource management, ensures optimal utilization of inpatient facilities, and enhances operational efficiency while maintaining data accuracy and security.
 
-⭐ Key Features / Goals
+**Key Features / Goals**
 
 Role-based user authentication and secure access
 
