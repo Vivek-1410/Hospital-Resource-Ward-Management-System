@@ -1,4 +1,5 @@
 **Hospital Resource & Ward Management System**
+
 **1. Project Overview**
 
 The Hospital Resource & Ward Management System is a web-based application designed to assist hospitals in efficiently managing inpatient resources such as wards, beds, rooms, medical equipment, and staff. The system provides real-time visibility into hospital resource utilization, streamlines patient admission, transfer, and discharge workflows, and supports informed decision-making for hospital administrators.
@@ -21,8 +22,9 @@ Increased administrative workload and human errors
 
 Existing hospital management solutions are often expensive, complex, or not tailored to the needs of small and medium hospitals. There is a need for a simple, affordable, and customizable system focused specifically on ward and resource management.
 
-**3. Target Users (Personas)
-3.1 Hospital Administrator**
+**3. Target Users (Personas)**
+
+**3.1 Hospital Administrator**
 
 Oversees overall hospital operations
 
