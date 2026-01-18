@@ -1,11 +1,11 @@
-Hospital Resource & Ward Management System
-1. Project Overview
+**Hospital Resource & Ward Management System**
+**1. Project Overview**
 
 The Hospital Resource & Ward Management System is a web-based application designed to assist hospitals in efficiently managing inpatient resources such as wards, beds, rooms, medical equipment, and staff. The system provides real-time visibility into hospital resource utilization, streamlines patient admission, transfer, and discharge workflows, and supports informed decision-making for hospital administrators.
 
 Many small and medium-sized hospitals continue to rely on manual registers or fragmented digital systems. These approaches often result in inefficiencies such as overcrowding, delayed admissions, inaccurate availability tracking, and poor resource utilization. This project aims to replace such manual processes with a centralized, reliable, and user-friendly digital platform.
 
-2. Problem Statement
+**2. Problem Statement**
 
 Hospitals face several operational challenges in managing inpatient resources, including:
 
@@ -21,8 +21,8 @@ Increased administrative workload and human errors
 
 Existing hospital management solutions are often expensive, complex, or not tailored to the needs of small and medium hospitals. There is a need for a simple, affordable, and customizable system focused specifically on ward and resource management.
 
-3. Target Users (Personas)
-3.1 Hospital Administrator
+**3. Target Users (Personas)
+3.1 Hospital Administrator**
 
 Oversees overall hospital operations
 
@@ -30,7 +30,7 @@ Monitors ward occupancy and resource utilization
 
 Requires administrative dashboards, reports, and control features
 
-3.2 Doctor
+**3.2 Doctor**
 
 Admits, transfers, and discharges patients
 
@@ -38,7 +38,7 @@ Needs quick access to bed availability and patient records
 
 Requires role-based system access without administrative complexity
 
-3.3 Nursing and Support Staff
+**3.3 Nursing and Support Staff**
 
 Manages ward-level operations
 
@@ -46,11 +46,11 @@ Updates patient status and bed allocation
 
 Requires a simple, intuitive, and mobile-friendly interface
 
-4. Vision Statement
+**4. Vision Statement**
 
 To develop an intuitive and reliable digital system that simplifies hospital ward and resource management, ensures optimal utilization of inpatient facilities, and improves operational efficiency while maintaining data accuracy and security.
 
-5. Key Features and Goals
+**5. Key Features and Goals**
 
 Role-based user authentication and secure system access
 
@@ -70,7 +70,7 @@ Search and filter functionality for patients and resources
 
 Scalable and mobile-friendly web-based interface
 
-6. Success Metrics
+**6. Success Metrics**
 
 The system correctly supports all admission, transfer, and discharge workflows
 
@@ -84,7 +84,7 @@ Stable and reliable performance during a continuous 30-day testing period
 
 Project completion within the defined scope and timeline
 
-7. Assumptions
+**7. Assumptions**
 
 Users have access to desktop or mobile devices with web browsers
 
@@ -94,7 +94,7 @@ Reliable internet connectivity is available within the hospital
 
 The development team has access to required open-source development tools
 
-8. Constraints
+**8. Constraints**
 
 The project must be completed within a three-month development timeline
 
