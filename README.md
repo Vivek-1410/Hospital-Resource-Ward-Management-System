@@ -10,11 +10,11 @@ Many small and medium-sized hospitals continue to rely on manual registers or fr
 ## 2. Problem Statement
 Hospitals face several operational challenges in managing inpatient resources, including:
 
-- Manual or disconnected tracking of ward and bed availability
-- Difficulty in managing patient admissions, transfers, and discharges
-- Lack of real-time visibility into ward occupancy
-- Underutilization or overloading of hospital resources
-- Increased administrative workload and human errors
+- Manual or disconnected tracking of ward and bed availability  
+- Difficulty in managing patient admissions, transfers, and discharges  
+- Lack of real-time visibility into ward occupancy  
+- Underutilization or overloading of hospital resources  
+- Increased administrative workload and human errors  
 
 Existing hospital management solutions are often expensive, complex, or not tailored to the needs of small and medium hospitals. There is a need for a simple, affordable, and customizable system focused specifically on ward and resource management.
 
@@ -23,19 +23,19 @@ Existing hospital management solutions are often expensive, complex, or not tail
 ## 3. Target Users (Personas)
 
 ### 3.1 Hospital Administrator
-- Oversees overall hospital operations
-- Monitors ward occupancy and resource utilization
-- Requires administrative dashboards, reports, and control features
+- Oversees overall hospital operations  
+- Monitors ward occupancy and resource utilization  
+- Requires administrative dashboards, reports, and control features  
 
 ### 3.2 Doctor
-- Admits, transfers, and discharges patients
-- Needs quick access to bed availability and patient records
-- Requires role-based system access without administrative complexity
+- Admits, transfers, and discharges patients  
+- Needs quick access to bed availability and patient records  
+- Requires role-based system access without administrative complexity  
 
 ### 3.3 Nursing and Support Staff
-- Manages ward-level operations
-- Updates patient status and bed allocation
-- Requires a simple, intuitive, and mobile-friendly interface
+- Manages ward-level operations  
+- Updates patient status and bed allocation  
+- Requires a simple, intuitive, and mobile-friendly interface  
 
 ---
 
@@ -45,45 +45,73 @@ To develop an intuitive and reliable digital system that simplifies hospital war
 ---
 
 ## 5. Key Features and Goals
-- Role-based user authentication and secure system access
-- Digital management of wards, rooms, and beds
-- Structured workflows for patient admission, transfer, and discharge
-- Real-time tracking of bed and ward availability
-- Equipment and medical resource inventory management
-- Staff assignment to wards and duty shifts
-- Administrative dashboard with occupancy statistics and reports
-- Search and filter functionality for patients and resources
-- Scalable and mobile-friendly web-based interface
+- Role-based user authentication and secure system access  
+- Digital management of wards, rooms, and beds  
+- Structured workflows for patient admission, transfer, and discharge  
+- Real-time tracking of bed and ward availability  
+- Equipment and medical resource inventory management  
+- Staff assignment to wards and duty shifts  
+- Administrative dashboard with occupancy statistics and reports  
+- Search and filter functionality for patients and resources  
+- Scalable and mobile-friendly web-based interface  
 
 ---
 
-## 6. Success Metrics
-- The system correctly supports all admission, transfer, and discharge workflows
-- At least 80% of users can perform core tasks without external assistance
-- Real-time availability data accurately reflects ward and bed status
-- Role-based access prevents unauthorized data access
-- Stable and reliable performance during a continuous 30-day testing period
-- Project completion within the defined scope and timeline
+## 6. Technology Stack
+This project is developed using the MERN stack along with containerization for consistent development and deployment.
+
+- **Frontend:** React.js  
+  - Component-based user interface  
+  - Role-based dashboards for Admin, Doctor, and Staff  
+
+- **Backend:** Node.js with Express.js  
+  - RESTful APIs  
+  - Business logic for admissions, transfers, and discharges  
+  - Role-based access control  
+
+- **Database:** MongoDB  
+  - Centralized storage for patients, wards, beds, users, and resources  
+
+- **Containerization:** Docker & Docker Compose  
+  - Separate containers for frontend, backend, and database  
+  - Ensures consistent local development and deployment  
+
+- **Design & Documentation Tools:**  
+  - Figma (Wireframes)  
+  - Draw.io (Architecture Diagram)  
+  - Git & GitHub (Version Control)  
 
 ---
 
-## 7. Assumptions
-- Users have access to desktop or mobile devices with web browsers
-- Hospital staff are willing to transition from manual processes to a digital system
-- Reliable internet connectivity is available within the hospital
-- The development team has access to required open-source development tools
+## 7. Success Metrics
+- The system correctly supports all admission, transfer, and discharge workflows  
+- At least 80% of users can perform core tasks without external assistance  
+- Real-time availability data accurately reflects ward and bed status  
+- Role-based access prevents unauthorized data access  
+- Stable and reliable performance during a continuous 30-day testing period  
+- Project completion within the defined scope and timeline  
 
 ---
 
-## 8. Constraints
-- The project must be completed within a three-month development timeline
-- Only free and open-source technologies will be used
-- The development team consists of students with basic to intermediate technical skills
-- The user interface must remain simple and easy to use for non-technical users
-- Patient and operational data must be securely stored and accessed
+## 8. Assumptions
+- Users have access to desktop or mobile devices with web browsers  
+- Hospital staff are willing to transition from manual processes to a digital system  
+- Reliable internet connectivity is available within the hospital  
+- The development team has access to required open-source development tools  
 
+---
 
-## MoSCoW Prioritization
+## 9. Constraints
+- The project must be completed within a three-month development timeline  
+- Only free and open-source technologies will be used  
+- The development team consists of students with basic to intermediate technical skills  
+- The user interface must remain simple and easy to use for non-technical users  
+- Patient and operational data must be securely stored and accessed  
+
+---
+
+## 10. MoSCoW Prioritization
+
 | Feature | Priority | Related User Stories |
 |--------|----------|----------------------|
 | User Authentication & Login | Must Have | Admin Login, Doctor Login, Staff Login |
@@ -94,3 +122,15 @@ To develop an intuitive and reliable digital system that simplifies hospital war
 | Reports & Analytics | Could Have | Generate Reports, View Analytics |
 | Billing Integration | Won’t Have | Billing Integration |
 
+---
+
+## 11. Architecture Overview
+The system follows a layered MERN-based architecture:
+
+- The **React frontend** handles user interaction and displays role-based dashboards.  
+- The **Node.js + Express backend** processes business logic and exposes REST APIs.  
+- **MongoDB** stores all hospital-related data in a centralized database.  
+- **Docker** is used to containerize frontend, backend, and database services.  
+- The application is deployed using **Docker Compose** for simplified setup and scalability.  
+
+This architecture ensures modularity, scalability, and ease of deployment.
