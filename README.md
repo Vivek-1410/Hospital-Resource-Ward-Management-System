@@ -146,3 +146,52 @@ The system follows a layered MERN-based architecture:
 - The application is deployed using **Docker Compose** for simplified setup and scalability.
 
 This architecture ensures modularity, scalability, and ease of deployment.
+
+## 12. Branching Strategy (GitHub Flow)
+
+- This project follows the GitHub Flow branching strategy to manage source code efficiently and ensure stability throughout the development process.
+
+- The main branch contains stable and production-ready code. All new features and changes are developed in separate feature branches to avoid affecting the stability of the main branch.
+
+- Branching Workflow
+
+- The development starts from the main branch.
+
+- A new feature branch is created for implementing specific functionality.
+
+- Development and testing are performed within the feature branch.
+
+- After verification, the feature branch is merged back into the main branch.
+
+- The updated main branch represents the latest stable version of the project.
+
+- Feature Branch Used in This Project
+
+- For this project, a feature branch named:
+
+**feature/frontend-ui**
+
+was created to develop the frontend user interface, including:
+
+- Login and authentication screens
+
+- Admin dashboard
+
+- Ward and bed management pages
+
+- Patient admission workflow
+
+- The changes were tested locally and then merged into the main branch to maintain a clean and stable codebase.
+
+- Benefits of Using GitHub Flow
+
+- Enables isolated feature development
+
+- Prevents unstable code from entering the main branch
+
+- Improves code organization and version control
+
+- Supports easier collaboration and maintenance
+
+- This branching strategy ensures better project management and aligns with industry-standard development practices.
+
