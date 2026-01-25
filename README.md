@@ -146,3 +146,21 @@ The system follows a layered MERN-based architecture:
 - The application is deployed using **Docker Compose** for simplified setup and scalability.
 
 This architecture ensures modularity, scalability, and ease of deployment.
+
+Quick Start – Local Development
+
+This section provides steps to set up and run the Hospital Resource & Ward Management System on a local machine for development and testing.
+
+Prerequisites
+
+Ensure the following tools are installed on your system:
+
+Git – for version control
+
+Node.js (v18 or above) – for running frontend and backend services
+
+npm – Node package manager
+
+Docker Desktop – for containerized local development
+
+Web Browser – Google Chrome / Edge / Firefox
