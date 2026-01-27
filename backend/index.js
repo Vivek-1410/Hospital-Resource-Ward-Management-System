@@ -15,8 +15,15 @@ mongoose.connect("mongodb://mongo:27017/hospitaldb")
 app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Hospital RMS Backend Running");
+  res.json({
+    status: "success",
+    message: "Hospital Resource & Ward Management System backend is running",
+    service: "backend",
+    port: 5000,
+    timestamp: new Date()
+  });
 });
+
 
 const PORT = 5000;
 app.listen(PORT, () => {
