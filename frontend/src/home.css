@@ -1,0 +1,165 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.home-container {
+  font-family: 'Segoe UI', sans-serif;
+  color: #111827;
+}
+
+/* ---------------- NAVBAR ---------------- */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 80px;
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2563eb;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #374151;
+  font-weight: 500;
+}
+
+.nav-btn {
+  padding: 8px 18px;
+  background-color: #2563eb;
+  color: white !important;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+.nav-btn:hover {
+  background-color: #1e3a8a;
+}
+
+/* ---------------- HERO ---------------- */
+
+.hero {
+  text-align: center;
+  padding: 140px 20px;
+  background: linear-gradient(135deg, #2563eb, #1e3a8a);
+  color: white;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 20px;
+  max-width: 650px;
+  margin: 0 auto 40px;
+  opacity: 0.95;
+}
+
+.primary-btn {
+  padding: 14px 30px;
+  background-color: white;
+  color: #2563eb;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.primary-btn:hover {
+  background-color: #f3f4f6;
+  transform: translateY(-2px);
+}
+
+/* ---------------- FEATURES ---------------- */
+
+.features {
+  padding: 100px 80px;
+  background-color: #f9fafb;
+  text-align: center;
+}
+
+.features h2 {
+  font-size: 32px;
+  margin-bottom: 60px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.feature-card {
+  background: white;
+  padding: 40px 25px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+  transition: 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+}
+
+.feature-card h3 {
+  margin-bottom: 15px;
+}
+
+/* ---------------- FOOTER ---------------- */
+
+.footer {
+  text-align: center;
+  padding: 25px;
+  background-color: #111827;
+  color: white;
+}
+
+/* ---------------- ANIMATIONS ---------------- */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+
+@media (max-width: 1000px) {
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    padding: 20px 30px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+}
