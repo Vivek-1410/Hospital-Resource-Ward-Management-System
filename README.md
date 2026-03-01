@@ -147,20 +147,145 @@ The system follows a layered MERN-based architecture:
 
 This architecture ensures modularity, scalability, and ease of deployment.
 
-Quick Start – Local Development
+## 12. Branching Strategy (GitHub Flow)
 
-This section provides steps to set up and run the Hospital Resource & Ward Management System on a local machine for development and testing.
+- This project follows the GitHub Flow branching strategy to manage source code efficiently and ensure stability throughout the development process.
 
-Prerequisites
+- The main branch contains stable and production-ready code. All new features and changes are developed in separate feature branches to avoid affecting the stability of the main branch.
 
-Ensure the following tools are installed on your system:
+- Branching Workflow
 
-Git – for version control
+- The development starts from the main branch.
 
-Node.js (v18 or above) – for running frontend and backend services
+- A new feature branch is created for implementing specific functionality.
 
-npm – Node package manager
+- Development and testing are performed within the feature branch.
 
-Docker Desktop – for containerized local development
+- After verification, the feature branch is merged back into the main branch.
 
-Web Browser – Google Chrome / Edge / Firefox
+- The updated main branch represents the latest stable version of the project.
+
+- Feature Branch Used in This Project
+
+- For this project, a feature branch named:
+
+**feature/frontend-ui**
+
+was created to develop the frontend user interface, including:
+
+- Login and authentication screens
+
+- Admin dashboard
+
+- Ward and bed management pages
+
+- Patient admission workflow
+
+- The changes were tested locally and then merged into the main branch to maintain a clean and stable codebase.
+
+- Benefits of Using GitHub Flow
+
+- Enables isolated feature development
+
+- Prevents unstable code from entering the main branch
+
+- Improves code organization and version control
+
+- Supports easier collaboration and maintenance
+
+- This branching strategy ensures better project management and aligns with industry-standard development practices.
+
+---
+
+## 13. Software Design
+
+### 13.1 High-Level Architecture
+
+The system follows a **Layered Client–Server Architecture with an MVC-inspired backend structure**.
+
+- Presentation Layer – React frontend
+- Routing Layer – Express routes
+- Business Logic Layer – Controllers & Services
+- Middleware Layer – Authentication & Role Verification
+- Data Access Layer – Mongoose Models
+- Database Layer – MongoDB
+- Infrastructure Layer – Docker & Docker Compose
+
+This architecture ensures clear separation of concerns, low coupling, and high modularity.
+
+#### Architecture Diagram
+
+![Architecture Diagram](docs/design/architecture.png)
+
+Editable Draw.io file available in:
+
+`docs/design/architecture.drawio`
+
+---
+
+### 13.2 Design Principles Applied
+
+The system was designed using core software engineering principles:
+
+- **Abstraction:** Frontend interacts with backend only through REST APIs.
+- **Modularity:** Backend structured into routes, controllers, services, middleware, and models.
+- **High Cohesion:** Each module performs a single well-defined responsibility.
+- **Low Coupling:** Components communicate via well-defined interfaces.
+- **Separation of Concerns:** UI, business logic, and data access are clearly separated.
+
+These principles improve maintainability, scalability, and readability of the system.
+
+---
+
+### 13.3 User Interface Design
+
+Figma was used to design low-fidelity wireframes before implementation.  
+The UI focuses on clarity, structured workflow, and consistency.
+
+#### Designed Screens
+
+- Login Screen
+- Admin Dashboard
+- Ward Management
+- Bed Management
+- Patient Admission
+- Reports / Occupancy Overview
+
+#### Figma Screenshots
+
+![Login](docs/design/login.png)
+![Admin Dashboard](docs/design/admin-dashboard.png)
+![Ward Management](docs/design/ward-management.png)
+![Bed Management](docs/design/bed-management.png)
+![Patient Admission](docs/design/patient-admission.png)
+![Reports](docs/design/reports.png)
+
+---
+
+### 13.4 Key Design Decisions
+
+- Adopted layered Client–Server architecture for scalability and maintainability.
+- Implemented modular backend structure (routes, controllers, services, models).
+- Centralized bed allocation logic to maintain data consistency.
+- Used RESTful APIs for loose coupling between frontend and backend.
+- Applied Docker containerization for environment consistency and portability.
+- Implemented JWT-based authentication with role-based access control.
+
+## 14. How to Run the Project
+
+### Using Docker
+
+docker-compose up --build
+
+Frontend: http://localhost:3000  
+Backend: http://localhost:5000
+
+### Without Docker
+
+1. cd backend
+2. npm install
+3. npm run dev
+
+4. cd frontend
+5. npm install
+6. npm start
