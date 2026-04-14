@@ -10,7 +10,9 @@ import {
   Building2, 
   Bell, 
   Search,
-  UserCircle
+  UserCircle,
+  Stethoscope, 
+  PieChart 
 } from "lucide-react";
 import "../layout.css";
 
@@ -28,10 +30,11 @@ function Layout({ children }) {
   return (
     <div className="layout-container">
       
+      {/* SIDEBAR */}
       <aside className="sidebar">
         <div className="sidebar-header">
           <div className="logo-icon">
-            <Activity size={24} color="white" />
+            <Activity size={24} strokeWidth={2.5} color="white" />
           </div>
           <h2>MedCore</h2>
         </div>
@@ -63,6 +66,18 @@ function Layout({ children }) {
             <Users size={20} />
             <span>Patients</span>
           </Link>
+
+          {/* NEW LINKS ADDED HERE */}
+          <Link to="/equipment" className={isActive("/equipment")}>
+            <Stethoscope size={20} />
+            <span>Equipment</span>
+          </Link>
+
+          <Link to="/reports" className={isActive("/reports")}>
+            <PieChart size={20} />
+            <span>Reports</span>
+          </Link>
+          
         </nav>
 
         <div className="sidebar-footer">
@@ -73,18 +88,20 @@ function Layout({ children }) {
         </div>
       </aside>
 
-      
-      <main className="main-content">
+      {/* MAIN CONTENT AREA */}
+      <main className="main-wrapper">
         
-        
+        {/* TOP HEADER */}
         <header className="top-header">
-          <div className="search-bar">
-            <Search size={18} className="search-icon" />
-            <input type="text" placeholder="Search patients, wards..." />
+          <div className="header-left">
+            <div className="search-bar">
+              <Search size={18} className="search-icon" />
+              <input type="text" placeholder="Search patients, wards..." />
+            </div>
           </div>
 
           <div className="header-actions">
-            <button className="icon-btn">
+            <button className="icon-btn action-bell">
               <Bell size={20} />
               <span className="notification-dot"></span>
             </button>
@@ -94,12 +111,14 @@ function Layout({ children }) {
                 <span className="user-name">Dr. Admin</span>
                 <span className="user-role">Super Admin</span>
               </div>
-              <UserCircle size={32} className="user-avatar" />
+              <div className="user-avatar-wrapper">
+                <UserCircle size={36} className="user-avatar" />
+              </div>
             </div>
           </div>
         </header>
 
-        
+        {/* DYNAMIC PAGE CONTENT */}
         <div className="page-content">
           {children}
         </div>

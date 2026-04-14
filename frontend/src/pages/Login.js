@@ -45,6 +45,7 @@ function Login() {
             <input
               type="email"
               placeholder="admin@hospital.com"
+              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -54,13 +55,14 @@ function Login() {
             <label>Password</label>
             <input
               type="password"
+              name="password"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <button className="login-btn" onClick={handleLogin}>
+          <button className="login-btn" type="submit" onClick={handleLogin}>
             Login
           </button>
 

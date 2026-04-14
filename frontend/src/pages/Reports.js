@@ -1,34 +1,16 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import { 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  Legend, 
-  ResponsiveContainer, 
-  LineChart, 
-  Line,
-  PieChart,
-  Pie,
-  Cell
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, 
+  LineChart, Line, PieChart, Pie, Cell
 } from "recharts";
 import { 
-  FileText, 
-  Download, 
-  Calendar, 
-  TrendingUp, 
-  Users, 
-  Activity, 
-  AlertCircle 
+  FileText, Download, Calendar, TrendingUp, Users, Activity, AlertCircle 
 } from "lucide-react";
 import "../reports.css";
 
 function ReportsPage() {
   const [dateRange, setDateRange] = useState("Last 7 Days");
-
 
   const occupancyData = [
     { name: "General", occupied: 32, capacity: 40 },
@@ -48,10 +30,10 @@ function ReportsPage() {
   ];
 
   const statusData = [
-    { name: "Recovering", value: 45, color: "#10b981" }, // Green
-    { name: "Critical", value: 10, color: "#ef4444" },   // Red
-    { name: "Stable", value: 30, color: "#3b82f6" },     // Blue
-    { name: "Observation", value: 15, color: "#f59e0b" } // Amber
+    { name: "Recovering", value: 45, color: "#10b981" }, 
+    { name: "Stable", value: 30, color: "#3b82f6" }, 
+    { name: "Observation", value: 15, color: "#f59e0b" },
+    { name: "Critical", value: 10, color: "#ef4444" }
   ];
 
   const activities = [
@@ -61,22 +43,20 @@ function ReportsPage() {
     { id: 4, text: "New ward 'Orthopedics' created", time: "1 day ago", type: "system" },
   ];
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   return (
     <Layout>
-      <div className="page-header">
+      <div className="page-header print-hide">
         <div className="title-area">
-          <FileText size={24} className="title-icon" />
-          <h1>Hospital Overview & Reports</h1>
-          <p className="subtitle">Analytics and system performance summary</p>
+          <FileText size={24} className="title-icon text-purple" />
+          <div>
+            <h1>Hospital Analytics</h1>
+            <p className="subtitle">System performance & occupancy overview</p>
+          </div>
         </div>
         
         <div className="header-actions">
           <div className="date-filter">
-            <Calendar size={16} />
+            <Calendar size={16} className="text-muted" />
             <select value={dateRange} onChange={(e) => setDateRange(e.target.value)}>
               <option>Today</option>
               <option>Last 7 Days</option>
@@ -84,13 +64,14 @@ function ReportsPage() {
               <option>This Year</option>
             </select>
           </div>
-          <button className="btn-primary" onClick={handlePrint}>
-            <Download size={18} /> Export Report
+          <button className="btn-primary" onClick={() => window.print()}>
+            <Download size={18} /> Export PDF
           </button>
         </div>
       </div>
 
       <div className="reports-container">
+        {/* KPI Row */}
         <div className="kpi-grid">
           <div className="kpi-card">
             <div className="kpi-icon bg-blue"><Users size={24} /></div>
@@ -103,7 +84,7 @@ function ReportsPage() {
           <div className="kpi-card">
             <div className="kpi-icon bg-green"><Activity size={24} /></div>
             <div className="kpi-info">
-              <span className="kpi-label">Bed Occupancy</span>
+              <span className="kpi-label">Overall Occupancy</span>
               <h3 className="kpi-value">78%</h3>
               <span className="kpi-change text-orange">-2% vs yesterday</span>
             </div>
@@ -125,64 +106,63 @@ function ReportsPage() {
             </div>
           </div>
         </div>
-        <div className="charts-grid">
-          <div className="chart-card large">
-            <h3>Admissions vs Discharges Trend</h3>
+
+        {/* Top Charts */}
+        <div className="charts-grid-main">
+          <div className="chart-card">
+            <h3>Admissions vs Discharges</h3>
             <div className="chart-wrapper">
               <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={trendData}>
+                <LineChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                  <XAxis dataKey="day" axisLine={false} tickLine={false} />
-                  <YAxis axisLine={false} tickLine={false} />
-                  <Tooltip />
-                  <Legend />
+                  <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{fill: '#64748b'}} />
+                  <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748b'}} />
+                  <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}/>
+                  <Legend iconType="circle" />
                   <Line type="monotone" dataKey="admissions" stroke="#2563eb" strokeWidth={3} dot={{r: 4}} activeDot={{r: 6}} />
                   <Line type="monotone" dataKey="discharges" stroke="#10b981" strokeWidth={3} dot={{r: 4}} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
           </div>
+
           <div className="chart-card">
             <h3>Occupancy by Ward</h3>
             <div className="chart-wrapper">
               <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={occupancyData} layout="vertical">
+                <BarChart data={occupancyData} layout="vertical" margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" />
                   <XAxis type="number" hide />
-                  <YAxis dataKey="name" type="category" width={80} axisLine={false} tickLine={false} />
-                  <Tooltip cursor={{fill: 'transparent'}} />
-                  <Bar dataKey="occupied" fill="#2563eb" radius={[0, 4, 4, 0]} barSize={20} />
-                  <Bar dataKey="capacity" fill="#e2e8f0" radius={[0, 4, 4, 0]} barSize={20} />
+                  <YAxis dataKey="name" type="category" width={80} axisLine={false} tickLine={false} tick={{fill: '#64748b'}} />
+                  <Tooltip cursor={{fill: '#f8fafc'}} contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />
+                  <Legend iconType="circle" />
+                  <Bar dataKey="occupied" name="Occupied" fill="#2563eb" radius={[0, 4, 4, 0]} barSize={16} />
+                  <Bar dataKey="capacity" name="Capacity" fill="#e2e8f0" radius={[0, 4, 4, 0]} barSize={16} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           </div>
         </div>
-        <div className="bottom-grid">
+
+        {/* Bottom Charts */}
+        <div className="charts-grid-secondary">
           <div className="chart-card">
             <h3>Patient Status Distribution</h3>
-            <div className="chart-wrapper center-content">
-              <ResponsiveContainer width="100%" height={250}>
+            <div className="chart-wrapper flex-center">
+              <ResponsiveContainer width="100%" height={260}>
                 <PieChart>
-                  <Pie
-                    data={statusData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={80}
-                    paddingAngle={5}
-                    dataKey="value"
-                  >
+                  <Pie data={statusData} cx="50%" cy="45%" innerRadius={70} outerRadius={90} paddingAngle={4} dataKey="value">
                     {statusData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip />
-                  <Legend verticalAlign="bottom" height={36}/>
+                  <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />
+                  <Legend verticalAlign="bottom" iconType="circle" />
                 </PieChart>
               </ResponsiveContainer>
             </div>
           </div>
+
           <div className="chart-card">
             <h3>Recent System Activity</h3>
             <div className="activity-list">
@@ -196,11 +176,9 @@ function ReportsPage() {
                 </div>
               ))}
             </div>
-            <button className="btn-view-all">View All Activity</button>
+            <button className="btn-view-all">View All Activity →</button>
           </div>
-
         </div>
-
       </div>
     </Layout>
   );

@@ -1,5 +1,7 @@
 const Bed = require("../models/Bed");
 const Patient = require("../models/Patient");
+const auditService = require("./audit.service"); 
+const { canAssignBed } = require("../utils/bedLogic");
 
 exports.createBed = async (data) => {
   const bed = new Bed(data);
@@ -13,19 +15,13 @@ exports.getAllBeds = async () => {
 
 exports.assignPatientToBed = async (bedId, patientId) => {
   const bed = await Bed.findById(bedId);
-  if (!bed) {
-    throw new Error("Bed not found");
-  }
-
-  if (bed.isOccupied) {
-    throw new Error("Bed is already occupied");
-  }
-
   const patient = await Patient.findById(patientId);
-  if (!patient) {
-    throw new Error("Patient not found");
-  }
 
+  const result = canAssignBed(bed, patient);
+
+  if (!result.allowed) {
+    throw new Error(result.reason);
+  }
 
   bed.isOccupied = true;
   bed.assignedPatient = patient._id;
@@ -36,5 +32,5 @@ exports.assignPatientToBed = async (bedId, patientId) => {
   patient.status = "Admitted";
   await patient.save();
 
-  return { message: "Patient assigned to bed successfully" };
+  return { message: "Patient assigned successfully" };
 };

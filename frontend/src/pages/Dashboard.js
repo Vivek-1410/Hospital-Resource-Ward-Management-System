@@ -1,5 +1,6 @@
 import React from "react";
 import Layout from "../components/Layout";
+import {Link} from "react-router-dom"
 import { 
   BedDouble, 
   Activity, 
@@ -11,146 +12,167 @@ import {
 import "../dashboard.css";
 
 function Dashboard() {
+  // Backend data remains exactly the same
   const totalBeds = 180;
   const occupiedBeds = 145;
   const occupancyRate = Math.round((occupiedBeds / totalBeds) * 100);
 
   return (
     <Layout>
-      <div className="dashboard-header">
-        <div>
-          <h1>Ward Overview</h1>
-          <p className="subtitle">Real-time resource monitoring</p>
-        </div>
-        <button className="btn-primary">
-          <Plus size={18} /> Admit Patient
-        </button>
-      </div>
+      <div className="dash-wrapper">
+        
+        {/* Header */}
+        <header className="dash-header">
+          <div className="header-titles">
+            <h1>Ward Overview</h1>
+            <p>Real-time resource monitoring</p>
+          </div>
 
-      <div className="stats-grid">
-        <div className="stat-card">
-          <div className="card-header">
-            <div className="icon-wrapper blue">
-              <Activity size={24} />
+
+            <Link to="/patients" className="primary-action-btn" style={{ textDecoration: 'none' }}>
+  <Plus size={16} /> Admit Patient
+</Link>
+        </header>
+
+        {/* Bento Box Grid */}
+        <div className="bento-grid">
+          
+          {/* Main Featured Card - Spans 2 columns */}
+          <div className="bento-card featured-card">
+            <div className="featured-content">
+              <div className="card-top">
+                <div className="icon-box orange">
+                  <Users size={24} />
+                </div>
+                <span className="badge warning">{occupancyRate}% Full</span>
+              </div>
+              <div className="featured-stats">
+                <h3>Occupied Beds</h3>
+                <div className="stat-group">
+                  <h2>{occupiedBeds}</h2>
+                  <span>/ {totalBeds} total</span>
+                </div>
+              </div>
+              <div className="bar-track">
+                <div className="bar-fill" style={{ width: `${occupancyRate}%` }}></div>
+              </div>
+              <p className="hint-text">{totalBeds - occupiedBeds} beds remaining available</p>
             </div>
-            <span className="trend-up">+2 new</span>
           </div>
-          <div className="card-content">
-            <h3>Total Wards</h3>
-            <p>12</p>
-          </div>
-        </div>
 
-        <div className="stat-card">
-          <div className="card-header">
-            <div className="icon-wrapper purple">
-              <BedDouble size={24} />
+          {/* Small Stat Card 1 */}
+          <div className="bento-card standard-card">
+            <div className="card-top">
+              <div className="icon-box blue">
+                <Activity size={22} />
+              </div>
+              <span className="badge success">+2 new</span>
+            </div>
+            <div className="card-bottom">
+              <h3>Total Wards</h3>
+              <h2>12</h2>
             </div>
           </div>
-          <div className="card-content">
-            <h3>Total Capacity</h3>
-            <p>{totalBeds}</p>
-          </div>
-        </div>
 
-        <div className="stat-card highlight-card">
-          <div className="card-header">
-            <div className="icon-wrapper orange">
-              <Users size={24} />
+          {/* Small Stat Card 2 */}
+          <div className="bento-card standard-card">
+            <div className="card-top">
+              <div className="icon-box purple">
+                <BedDouble size={22} />
+              </div>
             </div>
-            <span className="percentage-badge">{occupancyRate}% Full</span>
-          </div>
-          <div className="card-content">
-            <h3>Occupied Beds</h3>
-            <p>{occupiedBeds}</p>
-          </div>
-          <div className="progress-container">
-            <div className="progress-bar" style={{ width: `${occupancyRate}%` }}></div>
-          </div>
-          <small className="helper-text">{totalBeds - occupiedBeds} beds remaining</small>
-        </div>
-
-        {/* Critical Alerts */}
-        <div className="stat-card">
-          <div className="card-header">
-            <div className="icon-wrapper red">
-              <AlertCircle size={24} />
+            <div className="card-bottom">
+              <h3>Total Capacity</h3>
+              <h2>{totalBeds}</h2>
             </div>
-            <span className="trend-down">Action Req.</span>
-          </div>
-          <div className="card-content">
-            <h3>Critical Cases</h3>
-            <p>8</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="content-grid">
-        <div className="table-section">
-          <div className="section-header">
-            <h2>Recent Admissions</h2>
-            <button className="btn-text">View All</button>
           </div>
 
-          <table>
-            <thead>
-              <tr>
-                <th>Patient Name</th>
-                <th>Ward Info</th>
-                <th>Admitted Date</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
+          {/* Alert Card */}
+          <div className="bento-card alert-card">
+            <div className="card-top">
+              <div className="icon-box red">
+                <AlertCircle size={22} />
+              </div>
+              <span className="badge danger">Action Req.</span>
+            </div>
+            <div className="card-bottom">
+              <h3 className="text-red">Critical Cases</h3>
+              <h2 className="text-red">8</h2>
+            </div>
+          </div>
 
-            <tbody>
-              <tr>
-                <td>
-                  <div className="patient-cell">
-                    <div className="avatar">RK</div>
-                    <div>
-                      <span className="name">Ravi Kumar</span>
-                      <span className="sub-text">ID: #P-9021</span>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div className="ward-cell">
-                    <span className="ward-badge icu">ICU</span>
-                    <span className="bed-number">Bed B12</span>
-                  </div>
-                </td>
-                <td>Oct 24, 2023</td>
-                <td><span className="status active">Admitted</span></td>
-                <td>
-                  <button className="action-btn"><MoreHorizontal size={18} /></button>
-                </td>
-              </tr>
+          {/* Table Section - Spans full width */}
+          <div className="bento-card full-width-card">
+            <div className="table-header">
+              <h2>Recent Admissions</h2>
+              <Link to="/admissions" className="text-btn" style={{ textDecoration: 'none' }}>
+  View All
+</Link>
+            </div>
 
-              <tr>
-                <td>
-                  <div className="patient-cell">
-                    <div className="avatar secondary">PS</div>
-                    <div>
-                      <span className="name">Priya Sharma</span>
-                      <span className="sub-text">ID: #P-9022</span>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div className="ward-cell">
-                    <span className="ward-badge general">General</span>
-                    <span className="bed-number">Bed G05</span>
-                  </div>
-                </td>
-                <td>Oct 22, 2023</td>
-                <td><span className="status discharged">Discharged</span></td>
-                <td>
-                  <button className="action-btn"><MoreHorizontal size={18} /></button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            {/* This wrapper prevents the table from overflowing the card */}
+            <div className="table-scroll-wrapper">
+              <table className="modern-table">
+                <thead>
+                  <tr>
+                    <th>Patient Name</th>
+                    <th>Ward Info</th>
+                    <th>Admitted Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div className="user-profile">
+                        <div className="avatar primary">RK</div>
+                        <div className="user-info">
+                          <span className="user-name">Ravi Kumar</span>
+                          <span className="user-id">ID: #P-9021</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="ward-info">
+                        <span className="pill pill-icu">ICU</span>
+                        <span className="bed-id">Bed B12</span>
+                      </div>
+                    </td>
+                    <td className="text-muted">Oct 24, 2023</td>
+                    <td><span className="status-dot active">Admitted</span></td>
+                    <td>
+                      <button className="icon-btn"><MoreHorizontal size={20} /></button>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div className="user-profile">
+                        <div className="avatar secondary">PS</div>
+                        <div className="user-info">
+                          <span className="user-name">Priya Sharma</span>
+                          <span className="user-id">ID: #P-9022</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="ward-info">
+                        <span className="pill pill-general">General</span>
+                        <span className="bed-id">Bed G05</span>
+                      </div>
+                    </td>
+                    <td className="text-muted">Oct 22, 2023</td>
+                    <td><span className="status-dot discharged">Discharged</span></td>
+                    <td>
+                      <button className="icon-btn"><MoreHorizontal size={20} /></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
         </div>
       </div>
     </Layout>

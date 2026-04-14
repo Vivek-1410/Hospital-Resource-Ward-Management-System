@@ -10,6 +10,12 @@ app.use(express.json());
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth.routes");
 
+const equipmentRoutes = require("./routes/equipment.routes");
+const reportRoutes = require("./routes/report.routes");
+
+app.use("/api", equipmentRoutes);
+app.use("/api", reportRoutes);
+
 const patientRoutes = require("./routes/patient.routes");
 app.use("/api/patients", patientRoutes);
 
@@ -18,6 +24,9 @@ app.use("/api/wards", wardRoutes);
 
 const bedRoutes = require("./routes/bed.routes");
 app.use("/api/beds", bedRoutes);
+
+const auditRoutes = require("./routes/audit.routes");
+app.use("/api/audit", auditRoutes);
 
 connectDB();
 
@@ -28,13 +37,13 @@ app.get("/", (req, res) => {
     status: "success",
     message: "Hospital Resource & Ward Management System backend is running",
     service: "backend",
-    port: process.env.PORT || 5000,
+    port: process.env.PORT || 3000,
     timestamp: new Date()
   });
 });
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Backend running on port ${PORT}`);

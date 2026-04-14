@@ -1,217 +1,236 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-import { 
-  BedDouble, 
-  Plus, 
-  Filter, 
-  Trash2, 
-  User, 
-  CheckCircle, 
-  AlertCircle,
-  Activity,
+import {
+  BedDouble,
+  Plus,
+  User,
   X
 } from "lucide-react";
 import "../bedsPage.css";
 
 function BedsPage() {
-  const initialBeds = [
-    { id: 1, number: "ICU-01", ward: "ICU", status: "Occupied", patient: "John Doe", type: "Electric" },
-    { id: 2, number: "ICU-02", ward: "ICU", status: "Available", patient: null, type: "Electric" },
-    { id: 3, number: "GEN-101", ward: "General Ward", status: "Occupied", patient: "Sarah Smith", type: "Manual" },
-    { id: 4, number: "GEN-102", ward: "General Ward", status: "Maintenance", patient: null, type: "Manual" },
-    { id: 5, number: "PED-05", ward: "Pediatrics", status: "Available", patient: null, type: "Child Bed" },
-  ];
-
-  const [beds, setBeds] = useState(initialBeds);
-  const [filterWard, setFilterWard] = useState("All");
-  const [filterStatus, setFilterStatus] = useState("All");
+  const [beds, setBeds] = useState([]);
+  const [wards, setWards] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
-  
-  const [newBed, setNewBed] = useState({ number: "", ward: "General Ward", type: "Manual" });
+  const [loading, setLoading] = useState(false);
 
-  const totalBeds = beds.length;
-  const occupiedBeds = beds.filter(b => b.status === "Occupied").length;
-  const availableBeds = beds.filter(b => b.status === "Available").length;
-
-  const handleAddBed = (e) => {
-    e.preventDefault();
-    const bed = {
-      id: beds.length + 1,
-      ...newBed,
-      status: "Available",
-      patient: null
-    };
-    setBeds([...beds, bed]);
-    setShowAddForm(false);
-    setNewBed({ number: "", ward: "General Ward", type: "Manual" });
-  };
-
-  const dischargePatient = (id) => {
-    if (window.confirm("Discharge patient and mark bed as Available?")) {
-      setBeds(beds.map(bed => 
-        bed.id === id ? { ...bed, status: "Available", patient: null } : bed
-      ));
-    }
-  };
-
-  const deleteBed = (id) => {
-    if (window.confirm("Are you sure you want to remove this bed?")) {
-      setBeds(beds.filter(bed => bed.id !== id));
-    }
-  };
-
-  const filteredBeds = beds.filter(bed => {
-    const wardMatch = filterWard === "All" || bed.ward === filterWard;
-    const statusMatch = filterStatus === "All" || bed.status === filterStatus;
-    return wardMatch && statusMatch;
+  const [newBed, setNewBed] = useState({
+    number: "",
+    ward: ""
   });
+
+  // FETCH DATA
+  useEffect(() => {
+    fetchBeds();
+    fetchWards();
+  }, []);
+
+  const fetchBeds = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/beds");
+      const data = await res.json();
+      if (res.ok) setBeds(data);
+    } catch (err) {
+      console.error("Error fetching beds:", err);
+    }
+  };
+
+  const fetchWards = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/wards");
+      const data = await res.json();
+      if (res.ok) setWards(data);
+    } catch (err) {
+      console.error("Error fetching wards:", err);
+    }
+  };
+
+  // ADD BED
+  const handleAddBed = async (e) => {
+    e.preventDefault();
+
+    if (!newBed.number || !newBed.ward) {
+      return alert("Fill all fields");
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch("http://localhost:5000/api/beds", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          bedNumber: newBed.number,
+          ward: newBed.ward
+        })
+      });
+
+      if (res.ok) {
+        setShowAddForm(false);
+        setNewBed({ number: "", ward: "" });
+        fetchBeds();
+      } else {
+        alert("Failed to add bed");
+      }
+    } catch (err) {
+      console.error("Error adding bed:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Layout>
-      <div className="page-header">
-        <div className="title-area">
-          <BedDouble size={24} className="title-icon" />
-          <h1>Bed Management</h1>
-        </div>
-        <button 
-          className={`btn-primary ${showAddForm ? "btn-danger" : ""}`}
-          onClick={() => setShowAddForm(!showAddForm)}
-        >
-          {showAddForm ? <><X size={18}/> Cancel</> : <><Plus size={18}/> Add New Bed</>}
-        </button>
-      </div>
-
-      <div className="stats-row">
-        <div className="stat-card">
-          <div className="stat-icon bg-blue"><BedDouble size={24} /></div>
-          <div>
-            <h3>{totalBeds}</h3>
-            <p>Total Beds</p>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon bg-green"><CheckCircle size={24} /></div>
-          <div>
-            <h3>{availableBeds}</h3>
-            <p>Available</p>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon bg-red"><Activity size={24} /></div>
-          <div>
-            <h3>{occupiedBeds}</h3>
-            <p>Occupied</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="content-container">
+      <div className="page-wrapper animate-fade-in">
         
-        {showAddForm && (
-          <div className="add-bed-form">
-            <h3>Add New Bed</h3>
-            <form onSubmit={handleAddBed} className="form-row">
-              <input 
-                type="text" 
-                placeholder="Bed Number (e.g. ICU-03)" 
-                value={newBed.number}
-                onChange={e => setNewBed({...newBed, number: e.target.value})}
-                required
-              />
-              <select 
-                value={newBed.ward}
-                onChange={e => setNewBed({...newBed, ward: e.target.value})}
-              >
-                <option>General Ward</option>
-                <option>ICU</option>
-                <option>Pediatrics</option>
-                <option>Maternity</option>
-              </select>
-              <select 
-                value={newBed.type}
-                onChange={e => setNewBed({...newBed, type: e.target.value})}
-              >
-                <option>Manual</option>
-                <option>Electric</option>
-                <option>Semi-Electric</option>
-              </select>
-              <button type="submit" className="btn-save">Save Bed</button>
-            </form>
+        {/* HEADER */}
+        <header className="page-header">
+          <div className="title-area">
+            <h1>
+              <div className="title-icon-box">
+                <BedDouble size={24} />
+              </div>
+              Bed Management
+            </h1>
+            <p className="subtitle">Monitor and allocate hospital beds</p>
           </div>
-        )}
 
-        
-        <div className="filter-bar">
-          <div className="filters-left">
-            <div className="filter-group">
-              <Filter size={16} />
-              <select value={filterWard} onChange={e => setFilterWard(e.target.value)}>
-                <option value="All">All Wards</option>
-                <option value="ICU">ICU</option>
-                <option value="General Ward">General Ward</option>
-                <option value="Pediatrics">Pediatrics</option>
-              </select>
+          <button
+            className={`primary-action-btn ${showAddForm ? "btn-danger" : ""}`}
+            onClick={() => setShowAddForm(!showAddForm)}
+          >
+            {showAddForm ? (
+              <><X size={18} /> Cancel</>
+            ) : (
+              <><Plus size={18} /> Add New Bed</>
+            )}
+          </button>
+        </header>
+
+        {/* STATS ROW */}
+        <div className="stats-row">
+          <div className="stat-card">
+            <div className="icon-box blue"><BedDouble size={24} /></div>
+            <div className="stat-info">
+              <p>Total Beds</p>
+              <h3>{beds.length}</h3>
             </div>
-            <div className="filter-group">
-              <Activity size={16} />
-              <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)}>
-                <option value="All">All Status</option>
-                <option value="Available">Available</option>
-                <option value="Occupied">Occupied</option>
-                <option value="Maintenance">Maintenance</option>
-              </select>
+          </div>
+
+          <div className="stat-card">
+            <div className="icon-box green"><BedDouble size={24} /></div>
+            <div className="stat-info">
+              <p>Available</p>
+              <h3>{beds.filter(b => !b.isOccupied).length}</h3>
+            </div>
+          </div>
+
+          <div className="stat-card">
+            <div className="icon-box red"><BedDouble size={24} /></div>
+            <div className="stat-info">
+              <p>Occupied</p>
+              <h3>{beds.filter(b => b.isOccupied).length}</h3>
             </div>
           </div>
         </div>
 
-       
-        <div className="beds-grid">
-          {filteredBeds.map(bed => (
-            <div key={bed.id} className={`bed-card status-${bed.status.toLowerCase()}`}>
-              <div className="bed-header">
-                <span className="bed-number">{bed.number}</span>
-                <span className={`status-badge badge-${bed.status.toLowerCase()}`}>
-                  {bed.status}
-                </span>
-              </div>
-              
-              <div className="bed-body">
-                <div className="bed-icon-large">
-                  <BedDouble size={40} />
-                </div>
-                <div className="bed-details">
-                  <p className="bed-ward">{bed.ward}</p>
-                  <p className="bed-type">{bed.type} Bed</p>
-                </div>
+        <div className="content-container">
+          
+          {/* ADD FORM */}
+          {showAddForm && (
+            <div className="add-bed-panel">
+              <div className="panel-header">
+                <h3>Add New Bed</h3>
+                <p>Register a new bed to a specific ward.</p>
               </div>
 
-              {bed.status === "Occupied" && (
-                <div className="patient-info">
-                  <User size={14} />
-                  <span>{bed.patient}</span>
+              <form onSubmit={handleAddBed} className="form-row">
+                <div className="form-group">
+                  <label>Bed Number</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. ICU-01"
+                    value={newBed.number}
+                    onChange={e => setNewBed({ ...newBed, number: e.target.value })}
+                    required
+                  />
                 </div>
-              )}
 
-              <div className="bed-actions">
-                {bed.status === "Occupied" ? (
-                  <button className="btn-action discharge" onClick={() => dischargePatient(bed.id)}>
-                    Discharge
-                  </button>
-                ) : (
-                   <span className="empty-spacer"></span>
-                )}
-                <button className="btn-icon-delete" onClick={() => deleteBed(bed.id)}>
-                  <Trash2 size={16} />
+                <div className="form-group">
+                  <label>Assign Ward</label>
+                  <select
+                    value={newBed.ward}
+                    onChange={e => setNewBed({ ...newBed, ward: e.target.value })}
+                    required
+                  >
+                    <option value="" disabled>Select a Ward</option>
+                    {wards.map(w => (
+                      <option key={w._id} value={w._id}>
+                        {w.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <button type="submit" className="btn-save" disabled={loading}>
+                  {loading ? "Saving..." : "Save Bed"}
                 </button>
-              </div>
+              </form>
             </div>
-          ))}
+          )}
+
+          {/* GRID */}
+          <div className="beds-grid">
+            {beds.length > 0 ? (
+              beds.map(bed => (
+                <div
+                  key={bed._id}
+                  className={`bed-card status-${bed.isOccupied ? "occupied" : "available"}`}
+                >
+                  <div className="bed-header">
+                    <span className="bed-number">{bed.bedNumber}</span>
+                    <span className={`status-badge badge-${bed.isOccupied ? "occupied" : "available"}`}>
+                      {bed.isOccupied ? "Occupied" : "Available"}
+                    </span>
+                  </div>
+
+                  <div className="bed-body">
+                    <div className="bed-icon-large">
+                      <BedDouble size={36} />
+                    </div>
+                    <div className="bed-details">
+                      <p className="bed-ward-label">Ward</p>
+                      <p className="bed-ward-name">{bed.ward?.name || "Unassigned"}</p>
+                    </div>
+                  </div>
+
+                  {bed.assignedPatient ? (
+                    <div className="patient-info occupied">
+                      <User size={16} />
+                      <div className="patient-text">
+                        <span className="label">Patient</span>
+                        <span className="name">{bed.assignedPatient.name}</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="patient-info available">
+                      <span>No patient assigned</span>
+                    </div>
+                  )}
+                </div>
+              ))
+            ) : (
+              <div className="empty-state">
+                <BedDouble size={48} className="empty-icon" />
+                <h3>No beds found</h3>
+                <p>Add a new bed to get started.</p>
+              </div>
+            )}
+          </div>
+
         </div>
-
-        {filteredBeds.length === 0 && (
-          <div className="empty-state">No beds found matching your filters.</div>
-        )}
-
       </div>
     </Layout>
   );

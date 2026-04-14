@@ -1,0 +1,49 @@
+// @ts-nocheck
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+
+const connectDB = require("./config/db");
+const authRoutes = require("./routes/auth.routes");
+
+app.get("/equipments", (req, res) => {
+  res.send("./frontend/src/pages/EquipmentPage.js");
+})
+
+const patientRoutes = require("./routes/patient.routes");
+app.use("/api/patients", patientRoutes);
+
+const wardRoutes = require("./routes/ward.routes");
+app.use("/api/wards", wardRoutes);
+
+const bedRoutes = require("./routes/bed.routes");
+app.use("/api/beds", bedRoutes);
+
+const auditRoutes = require("./routes/audit.routes");
+app.use("/api/audit", auditRoutes);
+
+connectDB();
+
+app.use("/api/auth", authRoutes);
+
+app.get("/", (req, res) => {
+  res.json({
+    status: "success",
+    message: "Hospital Resource & Ward Management System backend is running",
+    service: "backend",
+    port: process.env.PORT || 3000,
+    timestamp: new Date()
+  });
+});
+
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Backend running on port ${PORT}`);
+});

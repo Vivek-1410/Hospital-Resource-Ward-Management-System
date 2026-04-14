@@ -1,0 +1,13 @@
+{
+  "mutate": [
+  "backend/services/**/*.js",
+  "backend/controllers/**/*.js"
+],
+  "testRunner": "mocha",
+  "mochaOptions": {
+  "spec": ["test/**/*.test.js"]
+},
+  "reporters": ["html", "clear-text", "progress"],
+  "timeoutMS": 60000,
+  "coverageAnalysis": "off"
+}
